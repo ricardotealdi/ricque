@@ -27,6 +27,6 @@ module Bootstrap
     end
 
     puts "Loading initializers"
-    ::Dir[initializer_files].each { |it| puts load it }
+    ::Dir[initializer_files].each { |it| load it }
   end
 end
