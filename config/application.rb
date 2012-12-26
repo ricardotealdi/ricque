@@ -3,12 +3,12 @@ require File.expand_path('../boot', __FILE__)
 module Bootstrap
   def self.initialize!
     initializer_files_path = ::File.join(::File.expand_path('initializers', self.config_dir), '**', '*.rb')
-    environment_file_path  = ::File.join(::File.expand_path('environments', self.config_dir), "#{ENV["RUBY_ENV"]}.rb")
+    environment_file_path  = ::File.join(::File.expand_path('environments', self.config_dir), "#{self.env}.rb")
     lib_files_path         = ::File.join(::File.expand_path("lib/#{app_name}", self.root), '**', '*.rb')
     environment            = self.env
 
     if !File.exists?(environment_file_path) 
-      puts "Environment file was not found for [#{ENV["RUBY_ENV"]}]"
+      puts "Environment file was not found for [#{self.env}]"
       environment = DEFAULT_ENVIRONMENT
       environment_file_path = ::File.join(::File.expand_path('environments', self.config_dir), "#{DEFAULT_ENVIRONMENT}.rb")
     end
