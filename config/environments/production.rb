@@ -1,1 +1,1 @@
-Bootstrap.config[:log_level] = :info
+Bootstrap.configuration[:log_level] = :info

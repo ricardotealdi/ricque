@@ -34,21 +34,21 @@ module Bootstrap
     ENV["CONFIG_ROOT_#{app_name}"]
   end
 
-  def self.config
+  def self.configuration
     @@config ||= {}
     @@config
   end
 
   def self.logger= logger
-    config[:logger] = logger
+    configuration[:logger] = logger
   end
 
   def self.logger
-    config[:logger]
+    configuration[:logger]
   end
 
   def self.logger?
-    !config[:logger].nil?
+    !configuration[:logger].nil?
   end
 
   def self.development?
@@ -56,7 +56,7 @@ module Bootstrap
   end
 
   def self.root
-    ENV["APP_ROOT#{app_name}"]
+    ENV["APP_ROOT_#{app_name}"]
   end
 
   def self.env

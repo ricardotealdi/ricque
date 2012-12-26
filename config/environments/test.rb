@@ -1,1 +1,1 @@
-Bootstrap.config[:log_level] = :debug
+Bootstrap.configuration[:log_level] = :debug
