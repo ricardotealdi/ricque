@@ -19,7 +19,18 @@ module Bootstrap
 
     load_path lib_files_path, "\s\sLoading application files"
 
+    puts "\s\sExecuting after_initialize_blocks (#{after_initialize_blocks.count})"
+    execute_after_initialize!
+
     nil
+  end
+
+  def self.after_initialize &block
+    after_initialize_blocks << block
+  end
+
+  def self.execute_after_initialize!
+    after_initialize_blocks.each(&:call)
   end
 
   def self.configuration
@@ -50,6 +61,11 @@ module Bootstrap
   end
 
   private
+
+  def self.after_initialize_blocks
+    @@after_initialize_blocks ||= []
+    @@after_initialize_blocks
+  end
 
   def self.load_path path, message
     files = ::Dir[path]
