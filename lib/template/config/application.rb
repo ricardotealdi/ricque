@@ -1,28 +1,46 @@
 require File.expand_path('../boot', __FILE__)
 
 module Bootstrap
+  @@initialized = false
+
   def self.initialize!
+    return if @@initialized
+
+    puts "=" * 70
+    puts "Loading Bootstrap"
+    started_at = Time.now
+
     initializer_files_path = ::File.join(::File.expand_path('initializers', self.config_dir), '**', '*.rb')
     environment_file_path  = ::File.join(::File.expand_path('environments', self.config_dir), "#{self.env}.rb")
     lib_files_path         = ::File.join(::File.expand_path("lib/#{app_name}", self.root), '**', '*.rb')
     environment            = self.env
 
     if !File.exists?(environment_file_path) 
-      puts "Environment file was not found for [#{self.env}]"
+      puts "\tEnvironment file was not found for [#{self.env}]"
       environment = Bootstrap::DEFAULT_ENVIRONMENT
       environment_file_path = ::File.join(::File.expand_path('environments', self.config_dir), "#{Bootstrap::DEFAULT_ENVIRONMENT}.rb")
     end
 
-    load_path environment_file_path, "\s\sLoading environment file for [#{environment}]"
+    load_path environment_file_path, "\tLoading environment file for [#{environment}]"
 
-    load_path initializer_files_path, "\s\sLoading initializers"
+    load_path initializer_files_path, "\tLoading initializers"
 
-    load_path lib_files_path, "\s\sLoading application files"
+    load_path lib_files_path, "\tLoading application files"
 
-    puts "\s\sExecuting after_initialize_blocks (#{after_initialize_blocks.count})"
+    puts "\tExecuting after_initialize_blocks (#{after_initialize_blocks.count})"
     execute_after_initialize!
 
+    puts "\tApplication Bootstrap loaded on environment \"#{ENV["RUBY_ENV"]}\" in #{Time.now - started_at} seconds"
+    puts "Bootstrap loaded"
+    puts "=" * 70
+
+    @@initialized = true
+
     nil
+  end
+
+  def self.initialized?
+    @@initialized
   end
 
   def self.after_initialize &block
@@ -31,6 +49,10 @@ module Bootstrap
 
   def self.execute_after_initialize!
     after_initialize_blocks.each(&:call)
+  end
+
+  def self.configure &block
+    block.call configuration
   end
 
   def self.configuration

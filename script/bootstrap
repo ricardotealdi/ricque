@@ -37,6 +37,7 @@ when 'new'
     puts "Renaming files"
     FileUtils.mv 'lib/bootstrap', "lib/#{dashesized_app_name}"
     FileUtils.mv "lib/bootstrap.rb", "lib/#{dashesized_app_name}.rb"
+    FileUtils.mv "lib/tasks/bootstrap.rake", "lib/tasks/#{dashesized_app_name}.rake"
   end
 
   puts "Application created on path #{app_path}"
