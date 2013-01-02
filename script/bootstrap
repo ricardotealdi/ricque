@@ -19,7 +19,9 @@ when 'new'
   root_path     = File.expand_path("../..", __FILE__)
   template_path = File.join root_path, 'lib', 'template', '.'
 
-  app_path = File.join(root_path, dashesized_app_name)
+  current_path  = File.expand_path(".")
+
+  app_path = File.join(current_path, dashesized_app_name)
 
   puts "Creating path #{app_path}"
   if Dir.exists?(app_path)
@@ -30,7 +32,7 @@ when 'new'
 
   Dir.chdir(app_path) do
     puts "Copying files"
-    FileUtils.cp_r template_path, ".", :verbose => true, :preserve => true
+    FileUtils.cp_r template_path, ".", :preserve => true
     puts "Renaming file content"
     `grep -Irl "Bootstrap" . | xargs sed -i '' 's/Bootstrap/#{camelized_app_name}/g'`
     `grep -Irl "bootstrap" . | xargs sed -i '' 's/bootstrap/#{dashesized_app_name}/g'`
