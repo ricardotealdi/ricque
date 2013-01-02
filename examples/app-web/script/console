@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+environment = {}
+environment["RUBY_ENV"] = ARGV[0].downcase unless ARGV[0].nil?
+
+exec environment, "irb -r #{File.expand_path('../../config/environment',  __FILE__)}"

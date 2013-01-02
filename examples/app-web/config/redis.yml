@@ -1,0 +1,9 @@
+development: &development
+  host: localhost:6379
+  namespace: "resque:bootstrap_example_app_development"
+test:
+  host: localhost:6379
+  namespace: "resque:bootstrap_example_app_test"
+production:
+  host: 10.20.113.50:6379
+  namespace: "resque:bootstrap_example_app"
