@@ -13,6 +13,10 @@ module Bootstrap
   def self.config_dir
     ENV["CONFIG_ROOT_#{app_name}"]
   end
+
+  def self.config_dir= config_dir
+    ENV["CONFIG_ROOT_#{app_name}"] = config_dir
+  end
   
   def self.root
     ENV["APP_ROOT_#{app_name}"]

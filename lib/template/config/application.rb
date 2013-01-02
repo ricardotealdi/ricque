@@ -1,13 +1,15 @@
 require File.expand_path('../boot', __FILE__)
 
 module Bootstrap
+  
+  BOOTSTRAP_VERSION = '0.1.0'
+
   @@initialized = false
 
   def self.initialize!
     return if @@initialized
 
-    puts "=" * 70
-    puts "Loading Bootstrap"
+    puts "#{"="*5} Loading Bootstrap #{"="*40}"
     started_at = Time.now
 
     initializer_files_path = ::File.join(::File.expand_path('initializers', self.config_dir), '**', '*.rb')
@@ -21,6 +23,9 @@ module Bootstrap
       environment_file_path = ::File.join(::File.expand_path('environments', self.config_dir), "#{Bootstrap::DEFAULT_ENVIRONMENT}.rb")
     end
 
+    puts "\tExecuting before_initialize_blocks (#{before_initialize_blocks.count})"
+    execute_before_initialize!
+
     load_path environment_file_path, "\tLoading environment file for [#{environment}]"
 
     load_path initializer_files_path, "\tLoading initializers"
@@ -30,9 +35,8 @@ module Bootstrap
     puts "\tExecuting after_initialize_blocks (#{after_initialize_blocks.count})"
     execute_after_initialize!
 
-    puts "\tApplication Bootstrap loaded on environment \"#{ENV["RUBY_ENV"]}\" in #{Time.now - started_at} seconds"
-    puts "Bootstrap loaded"
-    puts "=" * 70
+    puts "\tBootstrap loaded on environment \"#{ENV["RUBY_ENV"]}\" in #{Time.now - started_at} seconds"
+    puts "#{"="*5} Bootstrap loaded #{"="*40}"
 
     @@initialized = true
 
@@ -41,6 +45,14 @@ module Bootstrap
 
   def self.initialized?
     @@initialized
+  end
+
+  def self.before_initialize &block
+    before_initialize_blocks << block
+  end
+
+  def self.execute_before_initialize!
+    before_initialize_blocks.each(&:call)
   end
 
   def self.after_initialize &block
@@ -87,6 +99,11 @@ module Bootstrap
   def self.after_initialize_blocks
     @@after_initialize_blocks ||= []
     @@after_initialize_blocks
+  end
+
+  def self.before_initialize_blocks
+    @@before_initialize_blocks ||= []
+    @@before_initialize_blocks
   end
 
   def self.load_path path, message
