@@ -3,13 +3,7 @@ require 'rubygems'
 require 'bundler'
 Bundler.require
 require 'active_support/inflector'
-require 'optparse'
 require 'fileutils'
-
-options = {}
-OptionParser.new do |opts|
-  opts.banner = "Usage: bootstrap new [app_name]"
-end.parse!
 
 case ARGV[0]
 when 'new'
@@ -28,6 +22,10 @@ when 'new'
   app_path = File.join(root_path, dashesized_app_name)
 
   puts "Creating path #{app_path}"
+  if Dir.exists?(app_path)
+    puts "Path #{app_path} already exists"
+    exit 1
+  end
   Dir.mkdir app_path
 
   Dir.chdir(app_path) do
@@ -38,8 +36,10 @@ when 'new'
     `grep -Irl "bootstrap" . | xargs sed -i '' 's/bootstrap/#{dashesized_app_name}/g'`
     puts "Renaming files"
     FileUtils.mv 'lib/bootstrap', "lib/#{dashesized_app_name}"
-    FileUtils.mv "lib/#{dashesized_app_name}/bootstrap.rb", "lib/#{dashesized_app_name}/#{dashesized_app_name}.rb"
+    FileUtils.mv "lib/bootstrap.rb", "lib/#{dashesized_app_name}.rb"
   end
 
   puts "Application created on path #{app_path}"
+else
+  puts "Usage: bootstrap new [app_name]"
 end
