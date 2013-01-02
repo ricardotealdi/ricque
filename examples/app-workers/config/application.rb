@@ -2,7 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 module AppWorkers
   
-  BOOTSTRAP_VERSION = '0.1.0'
+  RICQUE_VERSION = '0.1.0'
 
   @@initialized = false
 
