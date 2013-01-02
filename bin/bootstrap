@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler'
+Bundler.require
+require 'active_support/inflector'
+require 'optparse'
+require 'fileutils'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: bootstrap new [app_name]"
+end.parse!
+
+case ARGV[0]
+when 'new'
+  if ARGV[1].nil?
+    puts 'Invalid application name'
+    exit
+  end
+  app_name = ARGV[1].underscore
+
+  camelized_app_name  = app_name.camelize
+  dashesized_app_name = app_name.dasherize
+
+  root_path     = File.expand_path("../..", __FILE__)
+  template_path = File.join root_path, 'lib', 'template', '.'
+
+  app_path = File.join(root_path, dashesized_app_name)
+
+  puts "Creating path #{app_path}"
+  Dir.mkdir app_path
+
+  Dir.chdir(app_path) do
+    puts "Copying files"
+    FileUtils.cp_r template_path, ".", :verbose => true, :preserve => true
+    puts "Renaming file content"
+    `grep -Irl "Bootstrap" . | xargs sed -i '' 's/Bootstrap/#{camelized_app_name}/g'`
+    `grep -Irl "bootstrap" . | xargs sed -i '' 's/bootstrap/#{dashesized_app_name}/g'`
+    puts "Renaming files"
+    FileUtils.mv 'lib/bootstrap', "lib/#{dashesized_app_name}"
+    FileUtils.mv "lib/#{dashesized_app_name}/bootstrap.rb", "lib/#{dashesized_app_name}/#{dashesized_app_name}.rb"
+  end
+
+  puts "Application created on path #{app_path}"
+end
