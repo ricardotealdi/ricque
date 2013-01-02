@@ -13,7 +13,7 @@ require 'rspec/autorun'
 # require 'factory_girl'
 # require 'database_cleaner'
 
-Dir["#{Bootstrap.root}/spec/support/**/*.rb"].each {|f| require f}
+Dir["#{Ricque.root}/spec/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
 

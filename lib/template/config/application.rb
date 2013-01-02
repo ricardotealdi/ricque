@@ -1,6 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
-module Bootstrap
+module Ricque
   
   BOOTSTRAP_VERSION = '0.1.0'
 
@@ -9,7 +9,7 @@ module Bootstrap
   def self.initialize!
     return if @@initialized
 
-    puts "#{"="*5} Loading Bootstrap #{"="*40}"
+    puts "#{"="*5} Loading Ricque #{"="*40}"
     started_at = Time.now
 
     initializer_files_path = ::File.join(::File.expand_path('initializers', self.config_dir), '**', '*.rb')
@@ -19,8 +19,8 @@ module Bootstrap
 
     if !File.exists?(environment_file_path) 
       puts "\tEnvironment file was not found for [#{self.env}]"
-      environment = Bootstrap::DEFAULT_ENVIRONMENT
-      environment_file_path = ::File.join(::File.expand_path('environments', self.config_dir), "#{Bootstrap::DEFAULT_ENVIRONMENT}.rb")
+      environment = Ricque::DEFAULT_ENVIRONMENT
+      environment_file_path = ::File.join(::File.expand_path('environments', self.config_dir), "#{Ricque::DEFAULT_ENVIRONMENT}.rb")
     end
 
     puts "\tExecuting before_initialize_blocks (#{before_initialize_blocks.count})"
@@ -35,8 +35,8 @@ module Bootstrap
     puts "\tExecuting after_initialize_blocks (#{after_initialize_blocks.count})"
     execute_after_initialize!
 
-    puts "\tBootstrap loaded on environment \"#{ENV["RUBY_ENV"]}\" in #{Time.now - started_at} seconds"
-    puts "#{"="*5} Bootstrap loaded #{"="*40}"
+    puts "\tRicque loaded on environment \"#{ENV["RUBY_ENV"]}\" in #{Time.now - started_at} seconds"
+    puts "#{"="*5} Ricque loaded #{"="*40}"
 
     @@initialized = true
 

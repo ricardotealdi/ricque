@@ -1,5 +1,5 @@
-module Bootstrap
-  APP_NAME = 'bootstrap'
+module Ricque
+  APP_NAME = 'ricque'
   DEFAULT_ENVIRONMENT = 'development'
 
   def self.app_name
@@ -31,13 +31,13 @@ module Bootstrap
   end
 end
 
-ENV["APP_ROOT_#{Bootstrap.app_name}"]    = ::File.expand_path('../..', __FILE__)
-ENV["CONFIG_ROOT_#{Bootstrap.app_name}"] = ::File.expand_path('config', ENV["APP_ROOT_#{Bootstrap.app_name}"])
-ENV["LIB_DIR_#{Bootstrap.app_name}"]     = ::File.expand_path("lib/#{Bootstrap.app_name}", ENV["APP_ROOT_#{Bootstrap.app_name}"])
+ENV["APP_ROOT_#{Ricque.app_name}"]    = ::File.expand_path('../..', __FILE__)
+ENV["CONFIG_ROOT_#{Ricque.app_name}"] = ::File.expand_path('config', ENV["APP_ROOT_#{Ricque.app_name}"])
+ENV["LIB_DIR_#{Ricque.app_name}"]     = ::File.expand_path("lib/#{Ricque.app_name}", ENV["APP_ROOT_#{Ricque.app_name}"])
 
-Bootstrap::DEFAULT_ENVIRONMENT = "development" unless defined?(Bootstrap::DEFAULT_ENVIRONMENT)
+Ricque::DEFAULT_ENVIRONMENT = "development" unless defined?(Ricque::DEFAULT_ENVIRONMENT)
 
-ENV["RUBY_ENV"]     = ENV["RUBY_ENV"] || ENV["RACK_ENV"] || Bootstrap::DEFAULT_ENVIRONMENT
+ENV["RUBY_ENV"]     = ENV["RUBY_ENV"] || ENV["RACK_ENV"] || Ricque::DEFAULT_ENVIRONMENT
 ENV["RACK_ENV"]     = ENV["RUBY_ENV"]
 
 ENV["BUNDLER_GROUPS"] = "default,#{ENV["RUBY_ENV"]}"

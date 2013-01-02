@@ -34,15 +34,15 @@ when 'new'
     puts "Copying files"
     FileUtils.cp_r template_path, ".", :preserve => true
     puts "Renaming file content"
-    `grep -Irl "Bootstrap" . | xargs sed -i '' 's/Bootstrap/#{camelized_app_name}/g'`
-    `grep -Irl "bootstrap" . | xargs sed -i '' 's/bootstrap/#{dashesized_app_name}/g'`
+    `grep -Irl "Ricque" . | xargs sed -i '' 's/Ricque/#{camelized_app_name}/g'`
+    `grep -Irl "ricque" . | xargs sed -i '' 's/ricque/#{dashesized_app_name}/g'`
     puts "Renaming files"
-    FileUtils.mv 'lib/bootstrap', "lib/#{dashesized_app_name}"
-    FileUtils.mv "lib/bootstrap.rb", "lib/#{dashesized_app_name}.rb"
-    FileUtils.mv "lib/tasks/bootstrap.rake", "lib/tasks/#{dashesized_app_name}.rake"
+    FileUtils.mv 'lib/ricque', "lib/#{dashesized_app_name}"
+    FileUtils.mv "lib/ricque.rb", "lib/#{dashesized_app_name}.rb"
+    FileUtils.mv "lib/tasks/ricque.rake", "lib/tasks/#{dashesized_app_name}.rake"
   end
 
   puts "Application created on path #{app_path}"
 else
-  puts "Usage: bootstrap new [app_name]"
+  puts "Usage: ricque new [app_name]"
 end
