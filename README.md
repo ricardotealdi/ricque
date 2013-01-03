@@ -5,7 +5,8 @@ Ricque is a generator of ruby applications with bootstrap similar to [Rails]' bo
 
 To generate a new application, you should run the following command on your terminal:
 
-    $ script/ricque new [your-application-name]
+    $ gem install ricque
+    $ ricque new [your-application-name]
 
 This command will create a new directory based on application's name chosen with all files needed.
 

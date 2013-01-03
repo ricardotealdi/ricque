@@ -2,7 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 module Ricque
   
-  RICQUE_VERSION = '0.1.0'
+  RICQUE_VERSION = '{RICQUE_VERSION}'
 
   @@initialized = false
 

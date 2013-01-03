@@ -26,3 +26,4 @@ vendor/cache
 .irbrc
 .yard*
 tags
+pkg
