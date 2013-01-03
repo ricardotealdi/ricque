@@ -13,10 +13,10 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "ricque"
 
-  s.files         = Dir['lib/**/*'].select { |f| File.file?(f) }
+  s.files         = Dir.glob('lib/**/*', File::FNM_DOTMATCH).reject { |a| a =~ /\.{1,2}$/}
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "activesupport"
+  s.add_runtime_dependency "activesupport", ">=0.6.1"
 
   s.bindir      = 'bin'
   s.executables = ['ricque']
