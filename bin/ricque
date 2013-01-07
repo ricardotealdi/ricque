@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 $:.push File.expand_path("../../lib", __FILE__)
 
-require 'active_support/inflector'
-require 'fileutils'
 require File.expand_path("../../lib/ricque", __FILE__)
+
+Ricque.initialize!
 
 case ARGV[0]
 when 'new'
@@ -13,37 +13,20 @@ when 'new'
   end
   app_name = ARGV[1].underscore
 
-  camelized_app_name  = app_name.camelize
-  dashesized_app_name = app_name.dasherize
-
-  root_path     = File.expand_path("../..", __FILE__)
-  template_path = File.join root_path, 'lib', 'template', '.'
-
-  current_path  = File.expand_path(".")
-
-  app_path = File.join(current_path, dashesized_app_name)
-
-  puts "Creating path #{app_path}"
-  if Dir.exists?(app_path)
-    puts "Path #{app_path} already exists"
+  begin
+    Ricque::AppGenerator
+      .new(app_name)
+      .create!
+  rescue Exception => ex
+    puts "\n"
+    puts "=" * 70
+    puts "FATAL ERROR\n\n"
+    puts "The following error occurred while trying to create the app:\n"
+    puts "\tError: #{ex}"
+    puts "\tBacktrace: \n\t\t#{ex.backtrace.join("\n\t\t")}"
     exit 1
   end
-  Dir.mkdir app_path
-
-  Dir.chdir(app_path) do
-    puts "Copying files"
-    FileUtils.cp_r template_path, ".", :preserve => true
-    puts "Renaming file content"
-    `grep -Irl "Ricque" . | xargs sed -i '' 's/Ricque/#{camelized_app_name}/g'`
-    `grep -Irl "ricque" . | xargs sed -i '' 's/ricque/#{dashesized_app_name}/g'`
-    `grep -Irl "{RICQUE_VERSION}" . | xargs sed -i '' 's/{RICQUE_VERSION}/#{Ricque::VERSION}/g'`
-    puts "Renaming files"
-    FileUtils.mv 'lib/ricque', "lib/#{dashesized_app_name}"
-    FileUtils.mv "lib/ricque.rb", "lib/#{dashesized_app_name}.rb"
-    FileUtils.mv "lib/tasks/ricque.rake", "lib/tasks/#{dashesized_app_name}.rake"
-  end
-
-  puts "Application created on path #{app_path}"
+  
 else
   puts "Usage: ricque new [app_name]"
 end
