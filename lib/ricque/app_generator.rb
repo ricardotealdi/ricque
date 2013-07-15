@@ -43,14 +43,19 @@ module Ricque
       Dir.chdir(app_path) do
         puts "Copying files"
         FileUtils.cp_r template_path, ".", :preserve => true
+        
         puts "Renaming file content"
-        `grep -Irl "Ricque" . | xargs sed -i '' 's/Ricque/#{camelized_app_name}/g'`
-        `grep -Irl "ricque" . | xargs sed -i '' 's/ricque/#{dashesized_app_name}/g'`
-        `grep -Irl "{RICQUE_VERSION}" . | xargs sed -i '' 's/{RICQUE_VERSION}/#{Ricque::VERSION}/g'`
+        if RUBY_PLATFORM.downcase.include?("darwin")
+           sed_args_platform_specific = "''"
+        else
+           sed_args_platform_specific = "-e"
+        end
+        `grep -Irl "Ricque" . | xargs sed -i #{sed_args_platform_specific} 's/Ricque/#{camelized_app_name}/g'`
+        `grep -Irl "ricque" . | xargs sed -i #{sed_args_platform_specific} 's/ricque/#{dashesized_app_name}/g'`
+        `grep -Irl "{RICQUE_VERSION}" . | xargs sed -i #{sed_args_platform_specific}'s/{RICQUE_VERSION}/#{Ricque::VERSION}/g'`
+
         puts "Renaming files"
-        FileUtils.mv 'lib/ricque', "lib/#{dashesized_app_name}"
-        FileUtils.mv "lib/ricque.rb", "lib/#{dashesized_app_name}.rb"
-        FileUtils.mv "lib/tasks/ricque.rake", "lib/tasks/#{dashesized_app_name}.rake"
+        `find . -name '*ricque*' | sed -e "p;s/ricque/#{dashesized_app_name}/" | xargs -n2 mv`
       end
     end
   end
