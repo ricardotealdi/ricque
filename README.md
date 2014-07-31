@@ -4,6 +4,8 @@ Ricque
 Ricque is a generator of ruby applications with bootstrap similar to [Rails]'
 bootstrap.
 
+**The generated app does not have the ricque gem as a dependency.**
+
 To generate a new application, you should run the following command on your
 terminal:
 
