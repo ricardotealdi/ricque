@@ -1,0 +1,4 @@
+desc 'Load <%= project.camelize %>\'s environment'
+task :environment do
+  <%= project.camelize %>.initialize!
+end

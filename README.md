@@ -1,39 +1,37 @@
 Ricque
 ======
 
-Ricque is a generator of ruby applications with bootstrap similar to [Rails]' bootstrap.
+Ricque is a generator of ruby applications with bootstrap similar to [Rails]'
+bootstrap.
 
-To generate a new application, you should run the following command on your terminal:
+**The generated app does not have the ricque gem as a dependency.**
+
+To generate a new application, you should run the following command on your
+terminal:
 
     $ gem install ricque
     $ ricque new [your-application-name]
 
-This command will create a new directory, based on app name, with all files needed to start your project.
+This command will create a new directory, based on app name, with all files
+needed to start your project.
 
 	app-name
+	├── .gitignore
+	├── .rspec
+	├── .rubocop.yml
+	├── .ruby-version
+	├── app
 	├── config
 	│   ├── application.rb
 	│   ├── boot.rb
 	│   ├── environment.rb
-	│   ├── environments
-	│   │   ├── development.rb
-	│   │   ├── production.rb
-	│   │   └── test.rb
 	│   └── initializers
-	│       └── 00_logger.rb
-	├── doc
-	│   └── README_FOR_APP
 	├── Gemfile
-	├── Gemfile.lock
 	├── lib
-	│   ├── app-name
-	│   │   └── version.rb
-	│   ├── app-name.rb
 	│   └── tasks
-	│       ├── app-name.rake
-	│       └── rspec.rake
+	│       └── app-name.rake
 	├── Rakefile
-	├── README
+	├── README.md
 	├── script
 	│   └── console
 	└── spec

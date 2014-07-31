@@ -1,32 +1,5 @@
 #!/usr/bin/env ruby
-$:.push File.expand_path("../../lib", __FILE__)
+$LOAD_PATH.push File.expand_path('../../lib', __FILE__)
+require File.expand_path('../../lib/ricque', __FILE__)
 
-require File.expand_path("../../lib/ricque", __FILE__)
-
-Ricque.initialize!
-
-case ARGV[0]
-when 'new'
-  if ARGV[1].nil?
-    puts 'Invalid application name'
-    exit
-  end
-  app_name = ARGV[1].underscore
-
-  begin
-    Ricque::AppGenerator
-      .new(app_name)
-      .create!
-  rescue Exception => ex
-    puts "\n"
-    puts "=" * 70
-    puts "FATAL ERROR\n\n"
-    puts "The following error occurred while trying to create the app:\n"
-    puts "\tError: #{ex}"
-    puts "\tBacktrace: \n\t\t#{ex.backtrace.join("\n\t\t")}"
-    exit 1
-  end
-  
-else
-  puts "Usage: ricque new [app_name]"
-end
+Ricque::Command.start
