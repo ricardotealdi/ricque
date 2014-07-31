@@ -1,4 +1,4 @@
-## 1.0.0.alpha
+## 1.0.0
 
 * Uses thor to generate the app template
 * Change the app template
