@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = %w(lib)
 
   s.add_dependency 'thor'
+  s.add_dependency 'activesupport'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'simplecov'

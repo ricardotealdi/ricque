@@ -11,6 +11,10 @@ module Ricque
       @_source_root ||= File.join(File.dirname(__FILE__), 'templates')
     end
 
+    def underscorize_project_name
+      @project = @project.underscore
+    end
+
     def structure
       directory('.', dest_dir, recursive: false)
     end

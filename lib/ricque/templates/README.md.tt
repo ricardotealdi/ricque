@@ -1,4 +1,4 @@
-# <%= project.capitalize %>
+# <%= project.camelize %>
 
 Your App description goes here
 
@@ -9,7 +9,7 @@ Your App description goes here
 
 ## Configuration
 
-The app's configurations are in `<%= project.capitalize %>.config` and you
+The app's configurations are in `<%= project.camelize %>.config` and you
 can set anything you want under this, because it is an `OpenStruct`.
 
 ### After initialization
@@ -17,7 +17,7 @@ can set anything you want under this, because it is an `OpenStruct`.
 If you need to initialize something, after the app's initialization, you should
 do this
 
-    <%= project.capitalize %>.after_initialize do
+    <%= project.camelize %>.after_initialize do
       # your code goes where
     end
 

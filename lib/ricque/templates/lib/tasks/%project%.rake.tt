@@ -1,4 +1,4 @@
-desc 'Load <%= project.capitalize %>\'s environment'
+desc 'Load <%= project.camelize %>\'s environment'
 task :environment do
-  <%= project.capitalize %>.initialize!
+  <%= project.camelize %>.initialize!
 end
