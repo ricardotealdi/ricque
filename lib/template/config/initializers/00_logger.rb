@@ -1,1 +1,0 @@
-Ricque.logger = Logger.new(STDOUT) if Ricque.logger.nil?

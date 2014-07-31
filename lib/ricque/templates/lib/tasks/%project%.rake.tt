@@ -1,0 +1,4 @@
+desc 'Load <%= project.capitalize %>\'s environment'
+task :environment do
+  <%= project.capitalize %>.initialize!
+end
