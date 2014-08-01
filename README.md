@@ -1,6 +1,9 @@
 Ricque
 ======
 
+[![Build Status](https://travis-ci.org/ricardotealdi/ricque.svg?branch=master)](https://travis-ci.org/ricardotealdi/ricque)
+
+
 Ricque is a generator of ruby applications with bootstrap similar to [Rails]'
 bootstrap.
 
